@@ -56,9 +56,7 @@ fn bench(c: &mut Criterion) {
 
     g.bench_function("overhead excluded", |b| {
         b.iter_batched(
-            || {
-                create_random_test_case(&mut rand::thread_rng())
-            },
+            || create_random_test_case(&mut rand::thread_rng()),
             |tc| {
                 let valid = secp256k1_verify(&tc.prehash_msg_bytes, &tc.vk_bytes, &tc.sig_bytes).unwrap();
                 assert_eq!(valid, tc.valid);
